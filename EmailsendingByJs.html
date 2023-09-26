@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Send Email</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: blue;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Send Email</h1>
+
+  <form action="javascript:void(0)">
+    <input type="email" name="to" placeholder="Recipient email address">
+    <input type="text" name="subject" placeholder="Subject">
+    <textarea name="body" placeholder="Message body"></textarea>
+    <button type="submit">Send Email</button>
+  </form>
+
+  <script>
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const to = form.querySelector('input[name="to"]').value;
+      const subject = form.querySelector('input[name="subject"]').value;
+      const body = form.querySelector('textarea[name="body"]').value;
+
+      // Send the email using the EmailJS API
+      const emailjs = require('emailjs-com');
+      const client = new emailjs.SMTPClient({
+        apiKey: 'td2145207@gmail.com',
+        domain: 'gamil.com'
+      });
+
+      const email = {
+        from: 'td2145207@gmail.com',
+        to,
+        subject,
+        text: body,
+      };
+
+      client.send(email, (err, response) => {
+        if (err) {
+          console.log(err);
+        } else {
+          alert('Email sent successfully');
+        }
+      });
+    });
+  </script>
+</body>
+  </html>
+  
